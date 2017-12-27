@@ -1740,7 +1740,7 @@
 		input[type="password"]:focus,
 		input[type="email"]:focus,
 		textarea:focus {
-			border-color: #83d3c9;
+			border-color: #89c989;
 		}
 
 	input[type="text"],
@@ -2065,8 +2065,8 @@
 		input[type="submit"].special,
 		input[type="reset"].special,
 		.button.special {
-			background: #83d3c9;
-			border-color: #83d3c9;
+			background: #89c989;
+			border-color: #89c989;
 			color: #fff !important;
 		}
 
@@ -2074,8 +2074,8 @@
 			input[type="submit"].special:hover,
 			input[type="reset"].special:hover,
 			.button.special:hover {
-				background: #96dad1 !important;
-				border-color: #96dad1 !important;
+				background: #9bcf9b !important;
+				border-color: #9bcf9b !important;
 			}
 
 		input[type="button"].fit,
@@ -2106,7 +2106,7 @@
 		}
 
 		.wrapper.style2 {
-			background-color: #83d3c9;
+			background-color: #89c989;
 			background-image: url("images/light-bl.svg"), url("images/light-br.svg");
 			background-position: bottom left, bottom right;
 			background-repeat: no-repeat, no-repeat;
@@ -2121,7 +2121,7 @@
 			.wrapper.style2 .button.special {
 				background: #fff;
 				border-color: #fff;
-				color: #83d3c9 !important;
+				color: #89c989 !important;
 			}
 
 				.wrapper.style2 .button.special:hover {
@@ -2342,7 +2342,7 @@
 			}
 
 			.dropotron > li:hover > a {
-				background: #83d3c9;
+				background: #89c989;
 				color: #fff;
 			}
 
