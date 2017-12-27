@@ -1,5 +1,5 @@
 /*
-	Stellar by HTML5 UP
+	Twenty by HTML5 UP
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
@@ -7,132 +7,111 @@
 (function($) {
 
 	skel.breakpoints({
-		xlarge: '(max-width: 1680px)',
-		large: '(max-width: 1280px)',
-		medium: '(max-width: 980px)',
-		small: '(max-width: 736px)',
-		xsmall: '(max-width: 480px)',
-		xxsmall: '(max-width: 360px)'
+		wide: '(max-width: 1680px)',
+		normal: '(max-width: 1280px)',
+		narrow: '(max-width: 980px)',
+		narrower: '(max-width: 840px)',
+		mobile: '(max-width: 736px)'
 	});
 
 	$(function() {
 
 		var	$window = $(window),
 			$body = $('body'),
-			$main = $('#main');
+			$header = $('#header'),
+			$banner = $('#banner');
 
 		// Disable animations/transitions until the page has loaded.
 			$body.addClass('is-loading');
 
 			$window.on('load', function() {
-				window.setTimeout(function() {
-					$body.removeClass('is-loading');
-				}, 100);
+				$body.removeClass('is-loading');
 			});
+
+		// CSS polyfills (IE<9).
+			if (skel.vars.IEVersion < 9)
+				$(':last-child').addClass('last-child');
 
 		// Fix: Placeholder polyfill.
 			$('form').placeholder();
 
-		// Prioritize "important" elements on medium.
-			skel.on('+medium -medium', function() {
+		// Prioritize "important" elements on narrower.
+			skel.on('+narrower -narrower', function() {
 				$.prioritize(
-					'.important\\28 medium\\29',
-					skel.breakpoint('medium').active
+					'.important\\28 narrower\\29',
+					skel.breakpoint('narrower').active
 				);
 			});
 
-		// Nav.
-			var $nav = $('#nav');
+		// Scrolly links.
+			$('.scrolly').scrolly({
+				speed: 1000,
+				offset: -10
+			});
 
-			if ($nav.length > 0) {
+		// Dropdowns.
+			$('#nav > ul').dropotron({
+				mode: 'fade',
+				noOpenerFade: true,
+				expandMode: (skel.vars.mobile ? 'click' : 'hover')
+			});
 
-				// Shrink effect.
-					$main
-						.scrollex({
-							mode: 'top',
-							enter: function() {
-								$nav.addClass('alt');
-							},
-							leave: function() {
-								$nav.removeClass('alt');
-							},
-						});
+		// Off-Canvas Navigation.
 
-				// Links.
-					var $nav_a = $nav.find('a');
+			// Navigation Button.
+				$(
+					'<div id="navButton">' +
+						'<a href="#navPanel" class="toggle"></a>' +
+					'</div>'
+				)
+					.appendTo($body);
 
-					$nav_a
-						.scrolly({
-							speed: 1000,
-							offset: function() { return $nav.height(); }
-						})
-						.on('click', function() {
+			// Navigation Panel.
+				$(
+					'<div id="navPanel">' +
+						'<nav>' +
+							$('#nav').navList() +
+						'</nav>' +
+					'</div>'
+				)
+					.appendTo($body)
+					.panel({
+						delay: 500,
+						hideOnClick: true,
+						hideOnSwipe: true,
+						resetScroll: true,
+						resetForms: true,
+						side: 'left',
+						target: $body,
+						visibleClass: 'navPanel-visible'
+					});
 
-							var $this = $(this);
+			// Fix: Remove navPanel transitions on WP<10 (poor/buggy performance).
+				if (skel.vars.os == 'wp' && skel.vars.osVersion < 10)
+					$('#navButton, #navPanel, #page-wrapper')
+						.css('transition', 'none');
 
-							// External link? Bail.
-								if ($this.attr('href').charAt(0) != '#')
-									return;
+		// Header.
+		// If the header is using "alt" styling and #banner is present, use scrollwatch
+		// to revert it back to normal styling once the user scrolls past the banner.
+		// Note: This is disabled on mobile devices.
+			if (!skel.vars.mobile
+			&&	$header.hasClass('alt')
+			&&	$banner.length > 0) {
 
-							// Deactivate all links.
-								$nav_a
-									.removeClass('active')
-									.removeClass('active-locked');
+				$window.on('load', function() {
 
-							// Activate link *and* lock it (so Scrollex doesn't try to activate other links as we're scrolling to this one's section).
-								$this
-									.addClass('active')
-									.addClass('active-locked');
+					$banner.scrollwatch({
+						delay:		0,
+						range:		1,
+						anchor:		'top',
+						on:			function() { $header.addClass('alt reveal'); },
+						off:		function() { $header.removeClass('alt'); }
+					});
 
-						})
-						.each(function() {
-
-							var	$this = $(this),
-								id = $this.attr('href'),
-								$section = $(id);
-
-							// No section for this link? Bail.
-								if ($section.length < 1)
-									return;
-
-							// Scrollex.
-								$section.scrollex({
-									mode: 'middle',
-									initialize: function() {
-
-										// Deactivate section.
-											if (skel.canUse('transition'))
-												$section.addClass('inactive');
-
-									},
-									enter: function() {
-
-										// Activate section.
-											$section.removeClass('inactive');
-
-										// No locked links? Deactivate all links and activate this section's one.
-											if ($nav_a.filter('.active-locked').length == 0) {
-
-												$nav_a.removeClass('active');
-												$this.addClass('active');
-
-											}
-
-										// Otherwise, if this section's link is the one that's locked, unlock it.
-											else if ($this.hasClass('active-locked'))
-												$this.removeClass('active-locked');
-
-									}
-								});
-
-						});
+				});
 
 			}
-
-		// Scrolly.
-			$('.scrolly').scrolly({
-				speed: 1000
-			});
 
 	});
 
