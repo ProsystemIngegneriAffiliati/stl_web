@@ -3389,39 +3389,37 @@
 			display: inline-block;
 			margin-right: 1%;
 			max-width: 95%;
-			padding: 6em;
+            padding: 6em;
 			position: relative;
-			text-align: right;
+			text-align: center;
 			vertical-align: middle;
 			z-index: 1;
 		}
 
 			#banner .content header {
-				display: inline-block;
+				display: block;
+                margin-top: 2em;
 				vertical-align: middle;
 			}
 
 				#banner .content header h2 {
-					font-size: 2.5em;
+					font-size: 3em;
 					margin: 0;
 				}
 
 				#banner .content header p {
-					margin: 0.5em 0 0 0;
+					margin: 1em 0 0 0;
 					top: 0;
 				}
 
 			#banner .content .image {
-				border-radius: 10%;
 				display: inline-block;
-				height: 18em;
-				margin-left: 3em;
+				height: 9em;
 				vertical-align: middle;
 				width: 18em;
 			}
 
 				#banner .content .image img {
-					border-radius: 10%;
 					display: block;
 					width: 100%;
 				}
@@ -3605,13 +3603,13 @@
 				}
 
 				#banner .content {
-					padding: 9em 0;
+					padding: 0 9em;
 					text-align: center;
 				}
 
 					#banner .content header {
 						display: block;
-						margin: 0 0 2em 0;
+						margin: 2em 0 2em 0;
 						text-align: center;
 					}
 
@@ -3736,7 +3734,7 @@
 					}
 
 					#banner .content .image {
-						height: 9em;
+						height: 4.5em;
 						width: 9em;
 					}
 
